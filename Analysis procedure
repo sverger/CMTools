@@ -1,0 +1,33 @@
+Image processing:
+--> Global CMT orientation in a tissue:
+	- Use MGX to extract cell contour and outer epidermal CMTs.
+	- Use Fiji to create ROISet for fibrilToolBatch with the macro "macro_Seg_forFTBatch.ijm".
+	- Run FibrilTool with the macro "Fibril_Tool_Batch_Seg.ijm".
+	- Run the python script "Script_FTBatch_Plot.py" for each data set to generate the polar histograms and angle analysis text files.
+	--> MGX --> macro_Seg_forFTBatch.ijm --> Fibril_Tool_Batch_Seg.ijm --> Script_FTBatch_Plot.py
+
+	--> Paired comparaison of Global CMT orientation:
+		- Put the .txt files output of fibriltool and plot analysis in a new folder.
+		- Run the python script "Script_FTBatch_test_RVL.py". (change the control and mutant names)
+		- Run the python script "Script_FTBatch_test_anisotropy.py". (change the control and mutant names)
+
+	--> Multiple Comparaison of Global CMT orientation:
+		- Create a parent directory containing as many directories as samples to test
+		- Put the .txt files output of fibriltool and plot analysis in the corresponding subfolder.
+		- Run the python script "Script_MultiCompRVL.py". Change the different samples names and paired tests
+
+If Error "Line #1 (got 1 columns instead of 1)..." while runing the python script "Script_FTBatch_Plot.py", there is additional text in one of the input text file, usually from previous Fiji Log. Remove from the file and rerun. 
+Additionally after modifying one of the text files, a hidden file with the same name plus "~" may have been created. Delete it and rerun. 
+
+		
+		
+
+
+--> CMT reorientation after ablation:
+	- Use MGX to extract cell contour and outer epidermal CMTs.
+	- Use Fiji to create ROISet for fibrilToolBatch either manually, or with the macro "macro_Seg_forFTBatch.ijm".
+	- Run FibrilTool with the macro "Fibril_Tool_Batch_Seg.ijm".
+	- Create points_Log file.
+	- Run the python script "Script_FTBatch_AngleToAblation.py".
+	- To detect directional bias, run the python script "Script_FTBatch_MTAngleToAblation_vs_CellAngleToX.py"
+
