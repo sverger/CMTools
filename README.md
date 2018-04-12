@@ -1,2 +1,2 @@
 # miscCMTs
-various macro for Cortical Microtubules Anisotropy and orientation quantification in plants
+Various macro for Cortical Microtubules anisotropy and orientation quantification in plants
