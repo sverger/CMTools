@@ -33,10 +33,10 @@ list = getFileList(dir);
 
 for (j=0; j<list.length; j++){
 	//print("entree dans la boucle 2");
-	if(endsWith (list[j], "_MTs.png")){
+	if(endsWith (list[j], "_MTs.tif")){
 	//print("path_fichier",dir+list[j]);
 	open( dir+File.separator+list[j] );
-	nom2=substring(list[j],0,indexOf(list[j],"_MTs.png"));
+	nom2=substring(list[j],0,indexOf(list[j],"_MTs.tif"));
 	open( dir+File.separator+nom2+"_MTs_RoiSet.zip" );
 	
 //print("nom_fichier_tif",nom2);
@@ -291,8 +291,8 @@ roiManager("Delete");
 //Sauver les orientations des MTs
 roiManager("Save", dir+File.separator+nom2+"_RoiSet_MTs.zip" );
 roiManager("Show all without labels");
-run("Flatten"); //projeter les MTs sur le .png
-saveAs("Tiff", dir+File.separator+nom2+"_MTs.tif" );
+run("Flatten"); //projeter les MTs sur le .tif
+saveAs("Tiff", dir+File.separator+nom2+"_FT-MTs.tif" );
 run("Close"); //fermer le .tif
 
 //newImage("Untitled", "RGB black", 1024, 1024, 1); //projeter les MTs sur fond noir
@@ -310,7 +310,7 @@ selectWindow("Log");
 saveAs("text", dir+File.separator+nom2+"_Log.txt" );
 run("Close");
 
-} //end of if endswith .png
+} //end of if endswith .tif
 
 
 
