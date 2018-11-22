@@ -3,10 +3,10 @@
 /////////////////////////Stephane Verger, Post Doc////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
 
-//This macro allows a semi-automated segmentation and creataion of ROI sets for fibrilToolBatch (Creates input for Fibril_Tool_Batch_Seg.ijm).
-//As input you need 2D images of cell contours (..._cells.png) and a matching 2D image of the mircotubule arrays (..._MTs.png). These can be created using MGX, by creating a rough surface, cropping the stack at a specific distance (with the anihilate function) to obtain either the microtubule arrays or the cell contours. 2D images (.png) can then be obtained with the snapshot function.
-//Put the _cells.png and _MTs.png images in a unique directory (as many as you want).
-//For each sample, the _cells.png and _MTs.png must share the same name: sample1_cells.png, sample1_MTs.png, sample2_cells.png, sample2_MTs.png,...
+//This macro allows a semi-automated segmentation and creation of ROI sets for fibrilToolBatch (Creates input for Fibril_Tool_Batch_Seg.ijm).
+//As input you need 2D images of cell contours (..._cells.tif) and a matching 2D image of the mircotubule arrays (..._MTs.tif). These can be created using Surfcut macro (https://github.com/sverger/SurfCut).
+//Put the _cells.tif and _MTs.tif images in a unique directory (as many as you want).
+//For each sample, the _cells.tif and _MTs.tif must share the same name: sample1_cells.tif, sample1_MTs.tif, sample2_cells.tif, sample2_MTs.tif,...
 //Select this directory when you start the macro.
 //As an output, it creates _MTs_RoiSet.zip files with the same name as your samples (sample1_MTs_RoiSet.zip, sample2_MTs_RoiSet.zip,...), which contain the ROIs that will be used as an input for Fibril_Tool_Batch_Seg.ijm
 
@@ -17,11 +17,11 @@ list = getFileList(dir);
 
 for (j=0; j<list.length; j++){
 	//print("entering loop 1");
-	if(endsWith (list[j], "_cells.png")){
+	if(endsWith (list[j], "_cells.tif")){
 	print("file_path",dir+list[j]);
 	open( dir+File.separator+list[j] );
-	file_name1=substring(list[j],0,indexOf(list[j],".png"));
-	file_name2=substring(list[j],0,indexOf(list[j],"_cells.png"));
+	file_name1=substring(list[j],0,indexOf(list[j],".tif"));
+	file_name2=substring(list[j],0,indexOf(list[j],"_cells.tif"));
     //print (file_name);
     run("8-bit");
     run("Gaussian Blur...", "sigma=3");
@@ -37,7 +37,7 @@ for (j=0; j<list.length; j++){
     close();
     selectWindow(list[j]);
     close();
-    selectWindow(file_name1+"-watershed-lines.png");
+    selectWindow(file_name1+"-watershed-lines.tif");
     run("Dilate");
     run("Dilate");
     run("Dilate");
@@ -58,13 +58,13 @@ for (j=0; j<list.length; j++){
         Satisfied = Dialog.getCheckbox();
     }
 
-    open(dir+File.separator+file_name2+"_MTs.png" );
+    open(dir+File.separator+file_name2+"_MTs.tif" );
     roiManager("Show All");
     waitForUser("Manage ROIs", "If needed, move or remove some ROIs to fit your needs\nSome ROIs may not be well aligned with the cells on the MTs images\nWhen you are satisfied, click OK here.");
 	roiManager("Save", dir+File.separator+file_name2+"_MTs_RoiSet.zip");
-	selectWindow(file_name2+"_MTs.png");
+	selectWindow(file_name2+"_MTs.tif");
 	close();
-	selectWindow(file_name1+"-watershed-lines.png");
+	selectWindow(file_name1+"-watershed-lines.tif");
 	close();
 	roiManager("Delete");
 	}
